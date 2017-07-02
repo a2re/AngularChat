@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="card card-container">
+    <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+    <p id="profile-name" class="profile-name-card"></p>
+    <form class="form-signin" (submit)="onSubmit()" [formGroup]="loginForm">
+      <input type="text" id="inputLogin" class="form-control" placeholder="Login Utilisateur" 
+        formControlName="login" autofocus>
+      <input type="password" id="inputPassword" class="form-control" placeholder="Mot de passe" 
+        formControlName="password">
+      <div id="remember" class="checkbox">
+        <label>
+          <input type="checkbox" value="remember-me" formControlName="remember"> Garder ma session active
+        </label>
+      </div>
+      <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Connexion</button>
+    </form><!-- /form -->
+    <a href="#" class="forgot-password">
+      Mot de passe oublié ?
+    </a>
+    <p>Form value: {{ loginForm.value | json }}</p>
+    <div *ngIf="error" class="alert alert-danger" style="text-align: center">
+      {{error}}
+    </div>
+  </div><!-- /card-container -->
+</div><!-- /container -->
+
+<footer class="footer">
+  <div class="container">
+      <p>AngularChat | Copyrights 2017</p>
+  </div>
+</footer>

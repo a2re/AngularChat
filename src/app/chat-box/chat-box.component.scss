@@ -1,0 +1,26 @@
+.box {
+    position: absolute;
+    top: 50px;
+    bottom: 0;
+    left: 20%;
+    right: 0;
+    z-index: 1000;
+    display: block;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: #ccc;
+    border-right: 1px solid #eee;
+}
+.messagesContainer {
+    position: absolute;
+    overflow-y: auto;
+    overflow-x: hidden;
+    top:0;
+    left: 0;
+    right: 0;
+    bottom: 50px;
+}
+.panel-footer {
+    position: absolute;
+    bottom: 0;
+}

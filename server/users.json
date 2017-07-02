@@ -1,0 +1,34 @@
+{
+    "users": [
+        {
+            "login": "atoure",
+            "password": "e10adc3949ba59abbe56e057f20f883e",
+            "isOnline": false
+        },
+        {
+            "login": "greta",
+            "password": "e10adc3949ba59abbe56e057f20f883e",
+            "isOnline": false
+        },
+        {
+            "login": "moran",
+            "password": "e10adc3949ba59abbe56e057f20f883e",
+            "isOnline": false
+        },
+        {
+            "login": "nita",
+            "password": "e10adc3949ba59abbe56e057f20f883e",
+            "isOnline": false
+        },
+        {
+            "login": "rebekah",
+            "password": "e10adc3949ba59abbe56e057f20f883e",
+            "isOnline": false
+        },
+        {
+            "login": "tasha",
+            "password": "e10adc3949ba59abbe56e057f20f883e",
+            "isOnline": false
+        }
+    ]
+}
