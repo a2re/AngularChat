@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  SOCKET_IO_URL: 'http://localhost:8080'
 };

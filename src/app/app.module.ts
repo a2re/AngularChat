@@ -1,3 +1,4 @@
+import { CommonService } from './_services/common.service';
 import { ChatService } from './_services/chat.service';
 import { SocketService } from './_services/socket.service';
 import { routing } from './app.routing';
@@ -17,6 +18,9 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { UsersSideBarComponent } from './users-side-bar/users-side-bar.component';
 import { ChatBoxComponent } from './chat-box/chat-box.component';
 import { MessageBoxComponent } from './message-box/message-box.component';
+import { MaterialModule, MdSidenavModule } from '@angular/material';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import 'hammerjs';
 
 @NgModule({
   declarations: [
@@ -33,14 +37,18 @@ import { MessageBoxComponent } from './message-box/message-box.component';
     FormsModule,
     HttpModule,
     ReactiveFormsModule,
-    routing
+    routing,
+    MaterialModule,
+    MdSidenavModule,
+    BrowserAnimationsModule
   ],
   providers: [
     AuthGuard,
     AuthenticationService,
     UserService,
     SocketService,
-    ChatService
+    ChatService,
+    CommonService
   ],
   bootstrap: [AppComponent, ]
 })

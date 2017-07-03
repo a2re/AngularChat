@@ -1,8 +1,10 @@
+import { MdSidenav } from '@angular/material';
+import { CommonService } from './../_services/common.service';
 import { ChatService } from './../_services/chat.service';
 import { AuthenticationService } from './../_services/authentication.service';
 import { SocketService } from './../_services/socket.service';
 import { UserService } from './../_services/user.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-users-side-bar',
@@ -13,11 +15,14 @@ export class UsersSideBarComponent implements OnInit {
 
   users = [];
   _socket;
+  isVisible: boolean = false;
+  @ViewChild('sidenav') sidenav: MdSidenav;
 
   constructor(private _userService: UserService, 
   private _socketService: SocketService, 
   private _authenticationService: AuthenticationService,
-  private _chatService: ChatService) { }
+  private _chatService: ChatService,
+  private _commonService: CommonService) { }
 
   ngOnInit() {
     this._userService.getAll().subscribe(data => {
@@ -42,6 +47,12 @@ export class UsersSideBarComponent implements OnInit {
         if (user) delete user.isOnline;
       });
 
+    });
+
+    this._commonService.getSideBarState().subscribe(isVisible => {
+      this.isVisible = isVisible;
+      this.sidenav.toggle();
+      console.log(isVisible)
     });
   }
 

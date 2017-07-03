@@ -1,3 +1,4 @@
+import { CommonService } from './../_services/common.service';
 import { Router } from '@angular/router';
 import { AuthenticationService } from './../_services/authentication.service';
 import { Component, OnInit } from '@angular/core';
@@ -10,8 +11,11 @@ import { Component, OnInit } from '@angular/core';
 export class NavbarComponent implements OnInit {
   menu;
   currentUser;
+  isToolbarVisible: boolean = true;
 
-  constructor(private authenticationService: AuthenticationService, private _router: Router) { }
+  constructor(private authenticationService: AuthenticationService,
+   private _router: Router,
+   private _commonService: CommonService) { }
 
   ngOnInit() {
     this.menu = [
@@ -34,6 +38,11 @@ export class NavbarComponent implements OnInit {
 
   disconnect() {
     this.authenticationService.logout();
+  }
+
+  toggleSideBar() {
+    this.isToolbarVisible = !this.isToolbarVisible;
+    this._commonService.setSideBarState(this.isToolbarVisible);
   }
 
 }
