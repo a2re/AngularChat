@@ -1,0 +1,33 @@
+.box {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.opened {
+    left: 250px;
+}
+
+.messagesContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 67px;
+    right: 0;
+    padding: 0 10px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.panel-footer {
+    position: absolute;
+    bottom: 0;
+    left: 10px;
+    right: 10px;
+
+    .full-width {
+        width: 100%;
+    }
+}

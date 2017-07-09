@@ -1,0 +1,15 @@
+md-card {
+    width: 90%;
+    margin: 5px;
+    box-sizing: border-box;
+    clear: both;
+}
+.received {
+    float: right;
+    background: rgba(63, 81, 181, 0.07);
+}
+md-card-footer {
+    font-size: 12px;
+    color: #777;
+    padding: 10px;
+}

@@ -7,6 +7,13 @@
   </ul>
 </div>-->
 
-<md-sidenav #sidenav mode="sidenav" class="app-sidenav">
-  Sidenav
+<md-sidenav #sidenav mode="sidenav" class="app-sidenav" [opened]="isVisible">
+  <md-list>
+    <h3 md-subheader>Contacts</h3>
+    <md-list-item *ngFor="let u of users" [ngClass]="{online: u.isOnline}" (click)="chatWith(u)">
+      <md-icon class="user-icon">account_circle</md-icon>
+      <span>{{u.login}}</span>
+      <md-icon class="md-secondary">2</md-icon>
+    </md-list-item>
+  </md-list>
 </md-sidenav>

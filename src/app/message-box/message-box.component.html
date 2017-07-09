@@ -1,22 +1,6 @@
-<div class="row msg_container base_sent" *ngIf="message.sender == currentUser.login">
-  <div class="col-md-1 col-xs-1 avatar">
-    <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">
-  </div>
-  <div class="col-md-10 col-xs-10">
-    <div class="messages msg_sent">
-      <p>{{message.content}}</p>
-      <p>Moi • {{message.date | date:'dd/MM à HH:mm'}}</p>
-    </div>
-  </div>
-</div>
-<div class="row msg_container base_receive" *ngIf="message.sender != currentUser.login"> 
-  <div class="col-md-10 col-xs-10">
-    <div class="messages msg_receive">
-      <p>{{message.content}}</p>
-      <p>{{message.sender}} • {{message.date | date:'dd/MM à HH:mm'}}</p>
-    </div>
-  </div>
-  <div class="col-md-1 col-xs-1 avatar">
-    <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">
-  </div>
-</div>
+<md-card [class.received]="currentUser.login != message.sender">
+  <md-card-content>
+    {{message.content}}
+  </md-card-content>
+  <md-card-footer>{{message.sender}} • {{message.date | date:'dd/MM à HH:mm'}}</md-card-footer>
+</md-card>

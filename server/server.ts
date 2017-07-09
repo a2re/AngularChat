@@ -7,6 +7,9 @@ import * as methodOverride from "method-override"; // simulate DELETE and PUT (e
 import * as helmet from "helmet"; // Security
 import * as compression from "compression";
 import * as routes from "./routes";
+import * as mongoose from 'mongoose';
+import * as dotenv from 'dotenv';
+import Message from './models/message';
 
 export class App {
 
@@ -17,15 +20,14 @@ export class App {
     /**
      * Setting environment for development|production
      */
+
+    dotenv.load({ path: '.env' });
     process.env.NODE_ENV = process.env.NODE_ENV || NODE_ENV;
 
     /**
      * Setting port number
      */
     process.env.PORT = process.env.PORT || PORT;
-
-    process.env.SECRET_TOKEN = "lesuperchatangular"
-
 
     /**
      * Create our app w/ express
@@ -47,6 +49,17 @@ export class App {
     this.app.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse application/vnd.api+json as json
     this.app.use(methodOverride());
 
+    mongoose.connect("mongodb://localhost:27017/angular-chat", {
+      useMongoClient: true,
+      /* other options */
+    });
+    const db = mongoose.connection;
+    (<any>mongoose).Promise = global.Promise;
+
+    db.on('error', console.error.bind(console, 'connection error:'));
+    db.once('open', () => {
+      console.log('Connected to MongoDB');
+    });
 
     /**
      * Setting routes
@@ -73,17 +86,30 @@ export class App {
           socket.username = username;
           users[username] = socket.id;
         }
-        console.log(JSON.stringify(users))
-        io.emit('logged', Object.keys(users));
+        Message.find({$or: [{sender: username}, {receiver: username}]}, (err, docs) => {
+          if (err) { return console.error(err); }
+          io.emit('logged', {connectedUsers: Object.keys(users), messages: docs });
+        });
       });
 
       socket.on('message', function (message) {
         message.sender = socket.username;
-        socket.emit('message', message);
-        var dest = io.sockets.connected[users[message.chatter]];
-        if (dest !== undefined) {
-          io.sockets.connected[users[message.chatter]].emit('message', message);
-        }
+        console.log(message, socket)
+        let msg = new Message({
+          sender: message.sender,
+          receiver: message.receiver,
+          content: message.content,
+          date: message.date
+        });
+        msg.save((err, data) => {
+          if (err) throw err;
+          console.log(err, data)
+          socket.emit('message', message);
+          var dest = io.sockets.connected[users[message.receiver]];
+          if (dest !== undefined) {
+            io.sockets.connected[users[message.receiver]].emit('message', message);
+          }
+        });
       });
 
       socket.on('disconnect', disconnection);

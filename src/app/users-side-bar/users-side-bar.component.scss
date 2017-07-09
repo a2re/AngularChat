@@ -1,5 +1,16 @@
 .app-sidenav {
   padding: 10px;
   min-width: 250px;
-  background: #ccc;
+}
+
+md-list-item {
+  cursor: pointer;
+  .user-icon {
+    margin-right: 10px;
+  }
+}
+.online {
+  .user-icon {
+    color: #00b900;
+  }
 }

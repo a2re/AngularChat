@@ -1,33 +1,15 @@
-<div class="box">
-  <div class="messagesContainer" *ngIf="messages.length > 0 && receiver && (receiver.login == messages[0].sender || receiver.login == messages[0].chatter)">
+<div class="box" [class.opened]="isVisible">
+  <div class="messagesContainer" #scrollMe *ngIf="messages.length > 0">
     <app-message-box *ngFor="let message of messages" [message]="message"></app-message-box>
   </div>
   <div class="panel-footer" *ngIf="receiver">
     <form (submit)="onSubmit()" [formGroup]="messageForm">
-      <div class="input-group">
-        <input type="text" formControlName="content" class="form-control input-sm chat_input" placeholder="Ecrire un message à {{receiver.login}}..."
-          required autofocus />
-        <span class="input-group-btn">
-              <button type="submit" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-send"></i></button>
-            </span>
-      </div>
+        <md-input-container class="full-width">
+          <input mdInput formControlName="content" placeholder="Ecrire un message à {{receiver.login}}..." 
+          autofocus
+          autocomplete="off">
+          <md-icon mdSuffix>send</md-icon>
+        </md-input-container>
     </form>
   </div>
 </div>
-
-hjjhhghg<br />
-hjjhhghg<br />
-hjjhhghg<br />
-hjjhhghg<br />
-hjjhhghg<br />
-hjjhhghg<br />
-hjjhhghg<br />
-hjjhhghg<br />
-hjjhhghg<br />
-hjjhhghg<br />
-hjjhhghg<br />
-hjjhhghg<br />
-hjjhhghg<br />
-hjjhhghg<br />
-hjjhhghg<br />
-hjjhhghg<br />

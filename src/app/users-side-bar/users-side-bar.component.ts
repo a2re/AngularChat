@@ -15,7 +15,7 @@ export class UsersSideBarComponent implements OnInit {
 
   users = [];
   _socket;
-  isVisible: boolean = false;
+  isVisible: boolean = true;
   @ViewChild('sidenav') sidenav: MdSidenav;
 
   constructor(private _userService: UserService, 
@@ -34,7 +34,8 @@ export class UsersSideBarComponent implements OnInit {
 
       this._socket.emit('login', this._authenticationService.getCurrentUser().login);
 
-      this._socket.on('logged', function (usersOnline) {
+      this._socket.on('logged', function (data) {
+        let usersOnline = data.connectedUsers;        
         usersOnline.forEach(function (u) {
           let user = self.users.find(us => us.login === u);
           if (!user) return;
@@ -51,8 +52,6 @@ export class UsersSideBarComponent implements OnInit {
 
     this._commonService.getSideBarState().subscribe(isVisible => {
       this.isVisible = isVisible;
-      this.sidenav.toggle();
-      console.log(isVisible)
     });
   }
 

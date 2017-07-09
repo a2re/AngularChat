@@ -1,9 +1,10 @@
+import { CommonService } from './../_services/common.service';
 import { AuthenticationService } from './../_services/authentication.service';
 import { Validators } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { SocketService } from './../_services/socket.service';
 import { ChatService } from './../_services/chat.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-chat-box',
@@ -16,12 +17,16 @@ export class ChatBoxComponent implements OnInit {
   currentUser;
   messageForm;
   private _socket;
+  private _allMessages = [];
   messages = [];
+  isVisible = true;
+  @ViewChild('scrollMe') private myScrollContainer: ElementRef;
 
-  constructor(private _chatService: ChatService, 
-  private _soketService: SocketService,
-  private _fb: FormBuilder,
-  private _authenticationService: AuthenticationService) { }
+  constructor(private _chatService: ChatService,
+    private _soketService: SocketService,
+    private _fb: FormBuilder,
+    private _commonService: CommonService,
+    private _authenticationService: AuthenticationService) { }
 
   ngOnInit() {
     this._socket = this._soketService.getSocket();
@@ -30,25 +35,52 @@ export class ChatBoxComponent implements OnInit {
 
     this._chatService.getReceiver().subscribe(receiver => {
       this.receiver = receiver;
+      this.getMessage();
     });
 
     this.messageForm = this._fb.group({
-      content: ['', Validators.required]
+      content: ['']
     });
 
-    let self = this;
-    this._socket.on('message', function(message) {
-      console.log(message);
-      self.messages.push(message);
+    this._socket.on('logged', (data) => {
+      console.log(data)
+      this._allMessages = data.messages;
     });
+
+    this._socket.on('message', (message) => {
+      this._allMessages.push(message);
+      if (!this.receiver) return;
+      this.getMessage();
+      this.scrollToBottom()
+    });
+
+    this._commonService.getSideBarState().subscribe(isVisible => {
+      this.isVisible = isVisible;
+    });
+  }
+
+  getMessage() {
+    this.messages = this._allMessages.filter(m =>
+      (m.receiver === this.receiver.login && m.sender === this.currentUser.login) ||
+      (m.sender === this.receiver.login && m.receiver === this.currentUser.login)
+    );
   }
 
   onSubmit() {
     let message = this.messageForm.value;
-    message.chatter = this.receiver.login;
+    if (message.content.length === 0) return;
+    message.receiver = this.receiver.login;
     message.date = new Date();
     this._socket.emit('message', message);
     this.messageForm.reset();
+  }
+
+  scrollToBottom(): void {
+    setTimeout(() => {
+      try {
+        this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+      } catch (err) { }
+    })
   }
 
 }

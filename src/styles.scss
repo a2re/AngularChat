@@ -1,8 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
-@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
 body {
     margin: 0;
+    font-family: Roboto,"Helvetica Neue",sans-serif;
 }
 
 md-sidenav-layout.m2app-dark {
@@ -33,6 +34,7 @@ md-sidenav-layout.m2app-dark {
 .app-toolbar-menu {
   padding: 0 14px 0 14px;
   color: white;
+  line-height: 2;
 }
 
 .app-icon-button {
@@ -50,6 +52,7 @@ md-sidenav-layout.m2app-dark {
   padding: 0;
   text-align: left;
   text-decoration: none;
+  outline: none;
 }
 
 .app-action {
@@ -77,4 +80,22 @@ md-sidenav-layout.m2app-dark {
 
 .app-progress {
   margin: 20px;
+}
+
+::-webkit-scrollbar-track
+{
+	box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar
+{
+	width: 8px;
+	background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb
+{
+	background-color: #888;
+	border: 1px solid #bbb;
 }

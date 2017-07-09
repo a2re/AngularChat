@@ -10,10 +10,11 @@ export class CommonService {
   constructor() {
     this._sideBarState = new Observable(observer => {
       this._sideBarStateChangeObserver = observer;
-    });
+    }).share();
   }
 
   setSideBarState(receiver) {
+    console.log(receiver)
     this._sideBarStateChangeObserver.next(receiver);
   }
 

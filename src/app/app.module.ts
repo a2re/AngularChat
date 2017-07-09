@@ -22,6 +22,12 @@ import { MaterialModule, MdSidenavModule } from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import 'hammerjs';
 
+import { AngularFireModule } from 'angularfire2';
+
+// New imports to update based on AngularFire2 version 4
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,7 +46,10 @@ import 'hammerjs';
     routing,
     MaterialModule,
     MdSidenavModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,    
+    //AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule
   ],
   providers: [
     AuthGuard,
@@ -50,6 +59,15 @@ import 'hammerjs';
     ChatService,
     CommonService
   ],
-  bootstrap: [AppComponent, ]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+var firebaseConfig  = {
+    apiKey: "",
+    authDomain: "",
+    databaseURL: "",
+    projectId: "",
+    storageBucket: "",
+    messagingSenderId: ""
+  };
