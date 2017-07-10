@@ -12,7 +12,7 @@
     <h3 md-subheader>Contacts</h3>
     <md-list-item *ngFor="let u of users" [ngClass]="{online: u.isOnline}" (click)="chatWith(u)">
       <md-icon class="user-icon">account_circle</md-icon>
-      <span>{{u.login}}</span>
+      <span>{{u.username}}</span>
       <md-icon class="md-secondary">2</md-icon>
     </md-list-item>
   </md-list>

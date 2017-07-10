@@ -61,15 +61,15 @@ export class ChatBoxComponent implements OnInit {
 
   getMessage() {
     this.messages = this._allMessages.filter(m =>
-      (m.receiver === this.receiver.login && m.sender === this.currentUser.login) ||
-      (m.sender === this.receiver.login && m.receiver === this.currentUser.login)
+      (m.receiver === this.receiver.username && m.sender === this.currentUser.username) ||
+      (m.sender === this.receiver.username && m.receiver === this.currentUser.username)
     );
   }
 
   onSubmit() {
     let message = this.messageForm.value;
     if (message.content.length === 0) return;
-    message.receiver = this.receiver.login;
+    message.receiver = this.receiver.username;
     message.date = new Date();
     this._socket.emit('message', message);
     this.messageForm.reset();

@@ -7,7 +7,7 @@ import methodOverride = require("method-override");
 import cookieParser = require("cookie-parser");
 import morgan = require("morgan");
 import errorHandler = require("error-handler");
-import UserCtrl from "./controllers/user";
+import setAPI from "./api";
 
 
 export class Routes {
@@ -44,22 +44,15 @@ export class Routes {
   }
 
   paths(app: express.Application) {
-
-    const router = express.Router();
-
-    const userCtrl = new UserCtrl();
+    setAPI(app);
 
     app.get('/', (req: express.Request, res: express.Response) => {
       this.defaultRoute(req, res);
     });
 
-    app.post('/api/authenticate', (req: express.Request, res: express.Response) => userCtrl.login(req, res));
-    app.get('/api/users', (req, res) => userCtrl.getAll(req, res))
-
     app.get('*', (req: express.Request, res: express.Response) => {
       this.defaultRoute(req, res);
     });
-
   }
 
 }

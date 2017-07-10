@@ -5,7 +5,7 @@
   <div class="panel-footer" *ngIf="receiver">
     <form (submit)="onSubmit()" [formGroup]="messageForm">
         <md-input-container class="full-width">
-          <input mdInput formControlName="content" placeholder="Ecrire un message à {{receiver.login}}..." 
+          <input mdInput formControlName="content" placeholder="Ecrire un message à {{receiver.username}}..." 
           autofocus
           autocomplete="off">
           <md-icon mdSuffix>send</md-icon>

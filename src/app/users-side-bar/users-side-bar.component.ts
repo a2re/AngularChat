@@ -26,25 +26,25 @@ export class UsersSideBarComponent implements OnInit {
 
   ngOnInit() {
     this._userService.getAll().subscribe(data => {
-      this.users = data.filter(u => this._authenticationService.getCurrentUser().login !== u.login);
+      this.users = data.filter(u => this._authenticationService.getCurrentUser().username !== u.username);
 
       let self = this;
 
       this._socket = this._socketService.getSocket();
 
-      this._socket.emit('login', this._authenticationService.getCurrentUser().login);
+      this._socket.emit('login', this._authenticationService.getCurrentUser().username);
 
       this._socket.on('logged', function (data) {
         let usersOnline = data.connectedUsers;        
         usersOnline.forEach(function (u) {
-          let user = self.users.find(us => us.login === u);
+          let user = self.users.find(us => us.username === u);
           if (!user) return;
           user.isOnline = true;
         });
       });
 
       this._socket.on('disconnect', function (login) {
-        let user = self.users.find(u => u.login === login);
+        let user = self.users.find(u => u.username === login);
         if (user) delete user.isOnline;
       });
 

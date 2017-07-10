@@ -9,7 +9,7 @@ import { JwtHelper } from 'angular2-jwt';
 @Injectable()
 export class AuthenticationService {
     loggedIn = false;
-    private currentUser: User = { id: 0, login: '', password: '' };
+    private currentUser: User = { id: 0, email: '', username: '', password: '' };
 
     jwtHelper: JwtHelper = new JwtHelper();
 
@@ -47,8 +47,7 @@ export class AuthenticationService {
 
     setCurrentUser(decodedUser) {
         this.loggedIn = true;
-        console.log(decodedUser)
-        this.currentUser.login = decodedUser.login;
+        this.currentUser.username = decodedUser.username;
     }
 
     getCurrentUser() {

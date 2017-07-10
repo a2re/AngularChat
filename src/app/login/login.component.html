@@ -3,8 +3,8 @@
     <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
     <p id="profile-name" class="profile-name-card"></p>
     <form class="form-signin" (submit)="onSubmit()" [formGroup]="loginForm">
-      <input type="text" id="inputLogin" class="form-control" placeholder="Login Utilisateur" 
-        formControlName="login" autofocus>
+      <input type="email" id="inputLogin" class="form-control" placeholder="Adresse mail" 
+        formControlName="email" autofocus>
       <input type="password" id="inputPassword" class="form-control" placeholder="Mot de passe" 
         formControlName="password">
       <div id="remember" class="checkbox">

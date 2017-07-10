@@ -1,4 +1,4 @@
-<md-card [class.received]="currentUser.login != message.sender">
+<md-card [class.received]="currentUser.username != message.sender">
   <md-card-content>
     {{message.content}}
   </md-card-content>

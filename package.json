@@ -25,6 +25,7 @@
     "@angular/router": "^4.0.0",
     "angular2-jwt": "^0.2.3",
     "angularfire2": "^4.0.0-rc.1",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.17.2",
     "bootstrap": "^3.3.7",
     "cookie-parser": "^1.4.3",
