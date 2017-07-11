@@ -36,12 +36,12 @@ export class App {
     this.app.use(helmet());
 
     if (NODE_ENV === 'development') {
-      this.app.use(express.static(path.join(process.cwd(), 'dist')));
+      this.app.use(express.static(path.join(process.cwd(), 'client')));
       this.app.use('/bower_components', express.static(path.join(process.cwd(), 'bower_components'))); // set the static files location of bower_components
       this.app.use(morgan('dev'));  // log every request to the console
     } else {
       this.app.use(compression());
-      this.app.use(express.static(path.join(process.cwd(), 'dist'), { maxAge: '7d' })); // set the static files location /public/img will be /img for users
+      this.app.use(express.static(path.join(process.cwd(), 'client'), { maxAge: '7d' })); // set the static files location /public/img will be /img for users
     }
 
     this.app.use(bodyParser.urlencoded({ 'extended': true })); // parse application/x-www-form-urlencoded
