@@ -7,6 +7,7 @@
     "start": "ts-node server/development.ts",
     "dev": "concurrently \"mongod\" \"ng serve -pc proxy.conf.json --open\" \"ng build --watch\" \"nodemon nodemon.json\"",
     "build": "ng build",
+    "build-prod": "concurrently \"ng build -aot -prod && tsc -p server\"",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -14,6 +15,7 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "^4.2.5",
+    "@angular/cdk": "^2.0.0-beta.8",
     "@angular/common": "^4.0.0",
     "@angular/compiler": "^4.0.0",
     "@angular/core": "^4.0.0",

@@ -20,10 +20,10 @@ export class Routes {
 
     switch (NODE_ENV) {
       case 'production':
-        this.basePath = 'dist';
+        this.basePath = 'client';
         break;
       case 'development':
-        this.basePath = 'dist';
+        this.basePath = 'dist/client';
         break;
     }
 
