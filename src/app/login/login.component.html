@@ -1,4 +1,4 @@
-<div class="container">
+<!--<div class="container">
   <div class="card card-container">
     <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
     <p id="profile-name" class="profile-name-card"></p>
@@ -13,7 +13,7 @@
         </label>
       </div>
       <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Connexion</button>
-    </form><!-- /form -->
+    </form>
     <a href="#" class="forgot-password">
       Mot de passe oublié ?
     </a>
@@ -21,11 +21,34 @@
     <div *ngIf="error" class="alert alert-danger" style="text-align: center">
       {{error}}
     </div>
-  </div><!-- /card-container -->
-</div><!-- /container -->
+  </div>
+</div>
 
 <footer class="footer">
   <div class="container">
       <p>AngularChat | Copyrights 2017</p>
   </div>
-</footer>
+</footer>-->
+<md-card>
+  <md-card-content>
+    <h1>Connexion</h1>
+    <form class="form-signin" (submit)="onSubmit()" [formGroup]="loginForm">
+      <md-input-container class="full-width">
+        <input mdInput type="e-mail" formControlName="email" placeholder="Adresse e-mail ou nom d'utilisateur" autofocus autocomplete="off">
+        <md-icon mdPrefix>person</md-icon>
+      </md-input-container>
+      <md-input-container class="full-width">
+        <input mdInput type="password" formControlName="password" placeholder="Mot de passe" autofocus autocomplete="off">
+        <md-icon mdPrefix>https</md-icon>
+      </md-input-container>
+      <md-checkbox formControlName="remember">Garder ma session active</md-checkbox>
+      <button md-raised-button color="primary" id="signin" type="submit">Connexion</button>
+    </form>
+    <a href="#">
+      Créer un compte
+    </a><br />
+    <a href="#" class="forgot-password">
+      Mot de passe oublié ?
+    </a>
+  </md-card-content>
+</md-card>

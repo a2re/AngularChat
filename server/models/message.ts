@@ -4,6 +4,7 @@ const messageSchema = new mongoose.Schema({
   content: String,
   sender: String,
   receiver: String,
+  read: Boolean,
   date: Date
 });
 

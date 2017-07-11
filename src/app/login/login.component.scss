@@ -1,0 +1,31 @@
+body {
+}
+md-card {
+    width: 350px;
+    height: 350px;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    .full-width {
+        width: 100%;
+    }
+
+    h1 {
+        margin-bottom: 45px;
+    }
+
+    md-checkbox {
+        display: block;
+        margin: auto;
+        margin-bottom: 30px;
+    }
+
+    #signin {
+        position: absolute;
+        right: 26px;
+    }
+}

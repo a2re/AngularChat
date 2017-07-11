@@ -6,7 +6,7 @@ import * as io from 'socket.io-client';
 export class SocketService {
   socket;
   constructor() {
-    this.socket = io(environment.SOCKET_IO_URL);
+    this.socket = io.connect();
   }
 
   getSocket() {

@@ -3,7 +3,12 @@
 
 body {
     margin: 0;
-    font-family: Roboto,"Helvetica Neue",sans-serif;
+    height: 100%;
+    font-family: Roboto,"Helvetica Neue",sans-serif;    
+    background: url("/assets/background.jpg") 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center; 
 }
 
 md-sidenav-layout.m2app-dark {

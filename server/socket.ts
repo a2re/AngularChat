@@ -5,11 +5,10 @@ export default function useSocket(server) {
 
     let users = {};
     io.on('connection', function (socket) {
-
       socket.on('login', (username) => {
         if (users[username] === undefined) {
           socket.username = username;
-          users[username] = socket.id;
+          users[username] = (users[username] || []).concat([socket.id]);
         }
         Message.find({$or: [{sender: username}, {receiver: username}]}, (err, docs) => {
           if (err) { return console.error(err); }
@@ -19,7 +18,6 @@ export default function useSocket(server) {
 
       socket.on('message', (message) => {
         message.sender = socket.username;
-        console.log(message, socket)
         let msg = new Message({
           sender: message.sender,
           receiver: message.receiver,
@@ -28,12 +26,15 @@ export default function useSocket(server) {
         });
         msg.save((err, data) => {
           if (err) throw err;
-          console.log(err, data)
           socket.emit('message', message);
-          var dest = io.sockets.connected[users[message.receiver]];
-          if (dest !== undefined) {
-            io.sockets.connected[users[message.receiver]].emit('message', message);
-          }
+          let socketIds = users[message.receiver];
+          if (!socketIds) return;
+          socketIds.forEach(socketId => {            
+            let receiverSocket = io.sockets.connected[socketId];
+            if (receiverSocket !== undefined) {
+              receiverSocket.emit('message', message);
+            }
+          });
         });
       });
 
@@ -41,7 +42,8 @@ export default function useSocket(server) {
       socket.on('disconnection', disconnection);
 
       function disconnection() {
-        delete users[socket.username];
+        users[socket.username] = (users[socket.username] || []).filter(id => id !== socket.id);
+        if(users[socket.username].length === 0) delete users[socket.username];
         io.emit('disconnect', socket.username);
       }
     });

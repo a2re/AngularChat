@@ -18,11 +18,11 @@ export class UsersSideBarComponent implements OnInit {
   isVisible: boolean = true;
   @ViewChild('sidenav') sidenav: MdSidenav;
 
-  constructor(private _userService: UserService, 
-  private _socketService: SocketService, 
-  private _authenticationService: AuthenticationService,
-  private _chatService: ChatService,
-  private _commonService: CommonService) { }
+  constructor(private _userService: UserService,
+    private _socketService: SocketService,
+    private _authenticationService: AuthenticationService,
+    private _chatService: ChatService,
+    private _commonService: CommonService) { }
 
   ngOnInit() {
     this._userService.getAll().subscribe(data => {
@@ -34,14 +34,24 @@ export class UsersSideBarComponent implements OnInit {
 
       this._socket.emit('login', this._authenticationService.getCurrentUser().username);
 
-      this._socket.on('logged', function (data) {
-        let usersOnline = data.connectedUsers;        
-        usersOnline.forEach(function (u) {
+      this._socket.on('logged', data => {
+        let usersOnline = data.connectedUsers;
+        let messages = data.messages;
+        usersOnline.forEach(u => {
           let user = self.users.find(us => us.username === u);
           if (!user) return;
           user.isOnline = true;
         });
+
+        this.users.forEach(user => {
+          user.unread = messages.filter(m => m.sender === user.username && !m.read).length;
+        });
       });
+
+      this._socket.on("message", message => {
+        let user = this.users.find(u => u.username === message.sender);
+        if (user) user.unread += 1;
+      })
 
       this._socket.on('disconnect', function (login) {
         let user = self.users.find(u => u.username === login);
