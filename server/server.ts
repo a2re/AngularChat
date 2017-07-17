@@ -49,6 +49,11 @@ export class App {
     this.app.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse application/vnd.api+json as json
     this.app.use(methodOverride());
 
+    // if OPENSHIFT env variables are present, use the available connection info:
+		if (process.env.OPENSHIFT_MONGODB_DB_URL) {
+			process.env.MONGODB_URI = process.env.OPENSHIFT_MONGODB_DB_URL +
+			process.env.OPENSHIFT_APP_NAME;
+		}
     mongoose.connect(process.env.MONGODB_URI, {
       useMongoClient: true,
       /* other options */
@@ -71,9 +76,11 @@ export class App {
       * START the server
     */
     let server = require("http").createServer(this.app);
-
-    server.listen(process.env.PORT, function () {
-      console.log('The server is running in port localhost: ', process.env.PORT);
+    let ipaddress = process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1";
+    let port = process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT;
+    
+    server.listen(port, ipaddress, function () {
+      console.log('The server is running in port localhost: ', port);
     });
 
     useSocket(server);
