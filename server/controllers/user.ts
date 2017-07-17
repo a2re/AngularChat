@@ -8,11 +8,6 @@ export default class UserCtrl extends BaseCtrl {
   model = User;
 
   login = (req, res) => {
-    // var users = require("../users.json")
-    // users.users.forEach(element => {
-    //   let user = new User({username: element.login, email: element.login+"@localhost.test", password: "123456"});
-    //   user.save();
-    // });
     this.model.findOne({ email: req.body.email }, (err, user) => {
       if (!user) { return res.sendStatus(403); }
       user.comparePassword(req.body.password, (error, isMatch) => {
@@ -22,5 +17,13 @@ export default class UserCtrl extends BaseCtrl {
       });
     });
   };
+
+  populate(req, res) {    
+    var users = require("../users.json")
+    users.users.forEach(element => {
+      let user = new User({username: element.login, email: element.login+"@localhost.test", password: "123456"});
+      user.save();
+    });
+  }
 
 }

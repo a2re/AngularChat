@@ -12,4 +12,6 @@ export default function setAPI(app) {
     app.post('/api/authenticate', (req: express.Request, res: express.Response) => userCtrl.login(req, res));
     app.get('/api/users', (req, res) => userCtrl.getAll(req, res))
 
+    app.get('/api/populate', (req, res) => userCtrl.populate(req, res))
+
 }
